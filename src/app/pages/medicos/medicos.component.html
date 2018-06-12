@@ -1,0 +1,74 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <input #input (keyup)="buscarMedico( input.value );" type="text" name="" id="" class="form-control" placeholder="Buscar hospital...">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="text-right">
+                    <button [routerLink]="['/medico','nuevo']" type="button" class="btn waves-effect waves-light btn-primary btn-rounded">
+                        <i class="fa fa-plus"></i> Crear medico
+                    </button>
+                </div>
+
+                <h3 class="card-title">Médicos registrados (<small> {{ _medicosService.totalMedicos }}</small>) </h3>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Foto</th>
+                            <th>Nombre</th>
+                            <th>Hospital</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let medico of medicos">
+                            <td>
+                                <img [src]="medico.img | imagen:'medico'" class="img-50 img-circle" alt="">
+                            </td>
+                            <td>
+                                {{ medico.nombre }}
+                            </td>
+                            <td>{{ medico.hospital.nombre }}</td>
+                            <td>
+                                <button [routerLink]="['/medico', medico._id]" class="btn btn-primary">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button (click)="borrarMedico(medico)" class="btn btn-danger">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item">
+                            <a (click)="cambiarDesde(-5)" class="page-link pointer" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                                <span class="sr-only">Anterior</span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a (click)="cambiarDesde(+5)" class="page-link pointer" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                                <span class="sr-only">Siguiente</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
